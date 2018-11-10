@@ -19,7 +19,7 @@ class loginxeserverView extends loginxeserver
 		$port = isset( $parts['port'] ) ? $parts['port'] : ( $scheme == 'https' ? '443' : '80' );
 		$path = isset( $parts['path'] ) ? $parts['path'] : '';
 		if ( ( $scheme == 'https' && $port != '443' ) ||
-			( $scheme == 'http' && $port != '80' ) 
+			( $scheme == 'http' && $port != '80' )
 		) {
 			// Only include the port if it's not the default
 			$host = "$host:$port";
@@ -148,7 +148,7 @@ class loginxeserverView extends loginxeserver
 
 		if($module_config->id!=$id || $module_config->key!=$key)
 		{
-			Context::set('url',getNotEncodedUrl('','module','loginxeserver','act','dispLoginxeserverOAuthFinish','error','1','message','msg_invalid_request'));
+			Context::set('url',getNotEncodedUrl('','module','loginxeserver','act','dispLoginxeserverOAuthFinish','error','1','message','loginxe_invalid_id_key'));
 			return;
 		}
 
@@ -165,10 +165,10 @@ class loginxeserverView extends loginxeserver
 		}
 		if($service=='mw') {
 			if(!isset($module_config->clientid) || $module_config->clientid=='' || !isset($module_config->clientkey) || $module_config->clientkey=='')
-                        {
-                                Context::set('url',getNotEncodedUrl('','module','loginxeserver','act','dispLoginxeserverOAuthFinish','error','1','message','loginxe_not_finished_setting'));
-                                return;
-                        }
+      {
+              Context::set('url',getNotEncodedUrl('','module','loginxeserver','act','dispLoginxeserverOAuthFinish','error','1','message','loginxe_not_finished_setting'));
+              return;
+      }
 			$gConsumerSecret = $module_config->clientkey;
 
 			$ping_url = 'https://librewiki.net/wiki/%ED%8A%B9%EC%88%98:MWO%EC%9D%B8%EC%A6%9D/initiate?format=json&oauth_callback=oob&oauth_consumer_key=' . $module_config->clientid . '&oauth_version=1.0&oauth_nonce=' . md5( microtime() . mt_rand() ) . '&oauth_timestamp=' . time() .'&oauth_signature_method=HMAC-SHA1&title=%ED%8A%B9%EC%88%98:MWO%EC%9D%B8%EC%A6%9D/initiate';
@@ -289,7 +289,7 @@ class loginxeserverView extends loginxeserver
 		if($service=='mw') {
 			$gConsumerSecret = $module_config->clientkey;
 			$gTokenSecret = $secret;
-			
+
 			$ping_url = 'https://librewiki.net/wiki/%ED%8A%B9%EC%88%98:MWO%EC%9D%B8%EC%A6%9D/token?format=json&oauth_verifier=' . $code . '&oauth_consumer_key=' . $module_config->clientid . '&oauth_token=' . $token . '&oauth_version=1.0&oauth_nonce=' . md5( microtime() . mt_rand() ) . '&oauth_timestamp=' . time() . '&oauth_signature_method=HMAC-SHA1&title=%ED%8A%B9%EC%88%98:MWO%EC%9D%B8%EC%A6%9D/token';
 			$signature = $this->sign_request( 'GET', $ping_url );
 			$ping_url .= "&oauth_signature=" . urlencode( $signature );
@@ -306,7 +306,7 @@ class loginxeserverView extends loginxeserver
                         $data= json_decode($buff);
 
 			$token = $data->key;
-			$secret = $data->secret;			
+			$secret = $data->secret;
 
 			$_SESSION['loginxe_key'] = $token;
 			$_SESSION['loginxe_secret'] = $secret;

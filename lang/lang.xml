@@ -69,6 +69,10 @@
         <value xml:lang="en"><![CDATA[]]></value>
         <value xml:lang="ko"><![CDATA[서버 설정이 완료되지 않았습니다.]]></value>
     </item>
+		<item name="loginxe_invalid_id_key">
+        <value xml:lang="en"><![CDATA[]]></value>
+        <value xml:lang="ko"><![CDATA[서버 ID/KEY 설정이 되어있지 않습니다.]]></value>
+    </item>
 
     <item name="loginxe_id">
         <value xml:lang="en"><![CDATA[]]></value>
